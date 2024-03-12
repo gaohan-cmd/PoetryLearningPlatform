@@ -1,0 +1,2 @@
+# PoetryLearningPlatform
+基于文生图大模型的古诗词学习平台
