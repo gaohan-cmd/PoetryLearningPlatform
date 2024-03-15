@@ -9,7 +9,8 @@ JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=60)
 JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
 
 # 数据库配置
-HOSTNAME = '127.0.0.1'
+# HOSTNAME = '127.0.0.1'
+HOSTNAME = '10.129.86.238'
 PORT = 3306
 USERNAME = 'root'
 PASSWORD = 'root'
