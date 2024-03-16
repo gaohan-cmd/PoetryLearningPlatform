@@ -99,9 +99,9 @@ def switch_weights():
 # @jwt_required(refresh=True)
 def generateByWenXin():
     # 对诗词内容进行讲解
-    poetry_content =request.json.get('poetry_content', '').strip()
+    poetryContent =request.json.get('poetryContent', '').strip()
 
     data = {
-        'poetryExplain': get_explain_respond(poetry_content),
+        'poetryExplain': get_explain_respond(poetryContent),
     }
     return response(code=0, message='回答成功', data=data)
