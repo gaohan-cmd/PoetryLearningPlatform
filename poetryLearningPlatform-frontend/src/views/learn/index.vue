@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { generateTxtByWenXin } from "@/api/learn"
-import { ref } from "vue"
+import {generatePicByPlay, generateTxtByWenXin} from "@/api/learn"
+import { computed, reactive, ref } from "vue"
 
 defineOptions({
   name: "Learn"
@@ -16,18 +16,67 @@ const handleConfirm = () => {
     // 输入为空的处理逻辑
   }
 }
+/** 获取文生成图片 */
+const handleImage = () => {
+  if (inputValue.value) {
+    getGeneratePicByPlay(inputValue.value)
+  } else {
+    // 输入为空的处理逻辑
+  }
+}
 
 const getGenerateTxtByWenXin = async (inputText: string) => {
   loading.value = true
   try {
     const response = await generateTxtByWenXin({ poetryContent: inputText })
-    poetryExplain.value = JSON.stringify(response.data.poetryExplain)
+    poetryExplain.value = response.data.poetryExplain.replace(/\\n/g, "\n").slice(0, -1)
   } catch (error) {
     poetryExplain.value = "请求失败，请重试"
     console.error(error)
   } finally {
     loading.value = false
   }
+}
+
+// 诗词生成图片
+// 检测结果图片
+// base64解码
+const detectImageData: any = reactive({
+  originalBase64: "",
+  resultBase64: "",
+  originalImageUrl: computed(() => {
+    if (detectImageData.originalBase64) {
+      const blob = dataURItoBlob(detectImageData.originalBase64)
+      return URL.createObjectURL(blob)
+    } else {
+      return ""
+    }
+  }),
+  detectResult: []
+})
+// 文生图片生成
+const getGeneratePicByPlay = async (inputText: string) => {
+  const res = await generatePicByPlay({ poetryContent: inputText })
+  // 如果后端的数据没有以 data:image/jpeg;base64 则需要判断加上
+  const originalBase64 = res.data.originalBase64
+  const base64Prefix = "data:image/jpeg;base64,"
+  // 判断 originalBase64 是否以 base64Prefix 开头，如果没有则加上
+  if (!originalBase64.startsWith(base64Prefix)) {
+    detectImageData.originalBase64 = base64Prefix + originalBase64
+  } else {
+    detectImageData.originalBase64 = originalBase64
+  }
+}
+// 图片base64解码
+const dataURItoBlob = (dataURI: any) => {
+  const byteString = atob(dataURI.split(",")[1])
+  const mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0]
+  const ab = new ArrayBuffer(byteString.length)
+  const ia = new Uint8Array(ab)
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i)
+  }
+  return new Blob([ab], { type: mimeString })
 }
 </script>
 
@@ -44,10 +93,26 @@ const getGenerateTxtByWenXin = async (inputText: string) => {
               clearable
               class="poetry-input"
             />
-            <el-button type="primary" @click="handleConfirm">确认</el-button>
+            <el-button type="primary" @click="handleConfirm">诗词赏析</el-button>
+            <el-button type="primary" @click="handleImage">图像生成</el-button>
           </div>
         </el-col>
-        <el-col :span="24">
+      </el-row>
+    </el-card>
+    <el-card v-loading="loading" shadow="never" class="search-wrapper">
+      <el-row :gutter="20">
+        <el-col :span="10">
+          <div class="grid-content ep-bg-purple">
+            <el-image
+              v-if="detectImageData.originalBase64"
+              :src="detectImageData.originalImageUrl"
+              :fit="'scaleDown'"
+              :preview-src-list="[detectImageData.originalImageUrl]"
+            />
+            <div v-else class="image-placeholder">原始图片</div>
+          </div>
+        </el-col>
+        <el-col :span="10">
           <el-input type="textarea" autosize v-model="poetryExplain" class="response-textarea" readonly />
         </el-col>
       </el-row>

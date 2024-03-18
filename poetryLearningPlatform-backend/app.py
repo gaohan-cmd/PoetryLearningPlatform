@@ -1,4 +1,6 @@
 import sqlalchemy
+import torch
+
 import config
 import argparse
 import os
@@ -18,6 +20,8 @@ from blueprints.user_manage_bp import bp as user_manage_bp
 from blueprints.detect_demo_bp import bp as detect_demo_bp
 from blueprints.detect_bp import bp as detect_bp
 from blueprints.chat_bp import bp as chat_bp
+
+
 
 '''
 前后端code约定：

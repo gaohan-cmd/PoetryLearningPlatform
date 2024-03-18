@@ -53,14 +53,8 @@ const logout = () => {
         </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <a target="_blank" href="https://www.cnblogs.com/Flat-White/">
+            <a target="_blank" href="https://github.com/gaohan-cmd/PoetryLearningPlatform">
               <el-dropdown-item>个人博客</el-dropdown-item>
-            </a>
-            <a target="_blank" href="https://space.bilibili.com/9042294">
-              <el-dropdown-item>B站主页</el-dropdown-item>
-            </a>
-            <a target="_blank" href="https://github.com/ultralytics/yolov5">
-              <el-dropdown-item>YOLOv5🚀</el-dropdown-item>
             </a>
             <el-dropdown-item divided @click="logout">
               <span style="display: block">退出登录</span>

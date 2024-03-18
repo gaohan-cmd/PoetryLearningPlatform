@@ -10,10 +10,10 @@ from io import BytesIO
 from flask_jwt_extended import jwt_required
 from database_models import WeightsModel
 from utils.backend_utils.dir_utils import *
-from utils.backend_utils.model_handler import load_model
 from utils.backend_utils.response_utils import response
 from utils.backend_utils.colorprinter import *
 from utils.gpt.create_wenxin_respond import *
+from utils.youdao_api.playground_load import *
 
 '''
 前后端code约定：
@@ -105,3 +105,35 @@ def generateByWenXin():
         'poetryExplain': get_explain_respond(poetryContent),
     }
     return response(code=0, message='回答成功', data=data)
+
+@bp.route('/generate/playground', methods=['POST'])
+def generate_image_playground():
+    # 对诗词内容生成图片
+    chinese_prompt = request.json.get('poetryContent', '').strip()
+    original_base64 = generate_image(chinese_prompt)
+
+    response_data = {
+        'originalBase64': original_base64
+    }
+    return response(code=0, message='图片生成已完成', data=response_data)
+
+
+def generate_image(chinese_prompt):
+    # 调用模型接口生成图片
+    results = generate_img(chinese_prompt)
+
+    img_bytes = BytesIO()
+    results.save(img_bytes, format='PNG')
+    img_bytes.seek(0)
+    original_base64 = base64.b64encode(img_bytes.read()).decode('utf-8')
+    return original_base64
+
+
+
+# base64编码生成的图片
+def batch_base64_encode_image(results_images):
+    for im in results_images.imgs:
+        buffered = BytesIO()
+        im_base64 = Image.fromarray(im)
+        im_base64.save(buffered, format="JPEG")
+    return base64.b64encode(buffered.getvalue()).decode('utf-8')

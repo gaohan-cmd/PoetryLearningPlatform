@@ -91,7 +91,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "Learn",
         meta: {
           title: "诗词学习",
-          svgIcon: "helpFilled",
+          svgIcon: "shici",
           affix: true
         }
       }
@@ -102,7 +102,7 @@ export const constantRoutes: RouteRecordRaw[] = [
     component: Layout,
     children: [
       {
-        path: "https://www.cnblogs.com/Flat-White/",
+        path: "https://github.com/gaohan-cmd/PoetryLearningPlatform",
         component: () => {},
         name: "Link",
         meta: {
@@ -113,15 +113,15 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
-    path: "/yolov5",
+    path: "/Playground v2",
     component: Layout,
     children: [
       {
-        path: "https://github.com/ultralytics/yolov5",
+        path: "https://hf-mirror.com/playgroundai/playground-v2-512px-base",
         component: () => {},
         name: "Link",
         meta: {
-          title: "YOLOv5🚀",
+          title: "Playground v2🚀",
           svgIcon: "link"
         }
       }

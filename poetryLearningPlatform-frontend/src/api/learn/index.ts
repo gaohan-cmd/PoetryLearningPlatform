@@ -1,5 +1,6 @@
 import { request } from "@/utils/service"
 import type * as Learn from "./types/learn"
+import {GetGeneratePlayPicResponseData, IPoetryContentData} from "./types/learn";
 
 /** 获取当前调用权重 */
 export function getCurrentWeightsApi() {
@@ -17,15 +18,16 @@ export function getAllEnableWeightsApi() {
 }
 
 /** 文生图 */
-export function generatePicByWenXin() {
-  return request<Learn.GetEnableWeightsResponseData>({
-    url: "chat/generate/wenxin",
-    method: "post"
+export function generatePicByPlay(data: Learn.IPoetryContentData) {
+  return request<Learn.GetGeneratePlayPicResponseData>({
+    url: "chat/generate/playground",
+    method: "post",
+    data
   })
 }
 
 /** 文生文 */
-export function generateTxtByWenXin(data: Learn.IPoetryExplainData) {
+export function generateTxtByWenXin(data: Learn.IPoetryContentData) {
   return request<Learn.GetGenerateWenXinTxtResponseData>({
     url: "chat/generate/wenxin",
     method: "post",

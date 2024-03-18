@@ -1,20 +1,8 @@
-from diffusers import DiffusionPipeline
-import torch
 
-pipe = DiffusionPipeline.from_pretrained(
-    "/home/sjc/Program/playground-v2-512px-base",
-    torch_dtype=torch.float16,
-    use_safetensors=True,
-    add_watermarker=False,
-    variant="fp16",
-)
-pipe.to("cuda")
-
-chinese_prompt = "月黑见渔灯，孤光一点萤"
 
 import requests
 import json
-from apidemo.utils.AuthV3Util import addAuthParams
+from AuthV3Util import addAuthParams
 
 # 您的应用ID
 APP_KEY = ''
@@ -45,11 +33,13 @@ def doCall(url, header, params, method):
     elif 'post' == method:
         return requests.post(url, params, header)
 
-dict = json.loads(createRequest(chinese_prompt))
-english_prompt = dict["translation"]
 
-prompt = "{},8k".format(english_prompt[0])
+def getEnglishPrompt(chinese_prompt):
+    dict = json.loads(createRequest(chinese_prompt))
+    english_prompt = dict["translation"]
+    print(english_prompt)
 
-image = pipe(prompt=prompt, width=512, height=512).images[0]
 
-image.save("")
+if __name__ == '__main__':
+    chinese_prompt = "白日依山尽，黄河入海流"
+    getEnglishPrompt(chinese_prompt)

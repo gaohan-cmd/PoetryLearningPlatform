@@ -19,6 +19,10 @@ def get_prompt_zn(example=None):
     return messages
 
 
+def get_prompt_pic(example=None):
+    messages = f"""我要你帮我对我所给的诗词进行场景描述,你需要提取出诗词当中所涉及到的目标物体，准确分析物体之间的联系，要求用英文回答问题，且回复内容不要包含描述场景以外的词汇."""
+    return messages
+
 # --- 似乎被用作不同指令之间的分隔符，而===则被用来标识指令的结束
 
 def get_fewshot_sample():
