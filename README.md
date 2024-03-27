@@ -1,6 +1,6 @@
 # PoetryLearningPlatform
 基于文生图大模型的古诗词学习平台
-# 技术特性
+# ⭐️技术特性
 
 ## 深度学习
 
@@ -38,3 +38,29 @@
 - **Flask-WTF**：Web表单生成和验证功能
 - **Flask-Mail**：电子邮件发送和验证
 - **PyMySQL**：MySQL数据库驱动程序
+
+# 🛠 安装教程
+
+## 深度学习
+
+```
+# playground
+pip install transformers accelerate safetensors diffusers 
+```
+## 前端
+
+```
+安装Node
+npm install pnpm
+pnpm i
+```
+
+## 后端
+```
+pip install -r requirements.txt
+pip install Werkzeug==2.2.3
+python -m pip install markupsafe==2.0.1  
+```
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=gaohan-cmd/PoetryLearningPlatform&type=Date)](https://star-history.com/#gaohan-cmd/PoetryLearningPlatform&Date)
