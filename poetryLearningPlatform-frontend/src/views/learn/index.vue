@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {generatePicByPlay, generateTxtByWenXin} from "@/api/learn"
+import { generatePicByPlay, generateTxtByWenXin } from "@/api/learn"
 import { computed, reactive, ref } from "vue"
 
 defineOptions({

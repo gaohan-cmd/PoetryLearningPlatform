@@ -1,6 +1,5 @@
 import { request } from "@/utils/service"
 import type * as Learn from "./types/learn"
-import {GetGeneratePlayPicResponseData, IPoetryContentData} from "./types/learn";
 
 /** 获取当前调用权重 */
 export function getCurrentWeightsApi() {

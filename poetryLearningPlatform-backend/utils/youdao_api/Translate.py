@@ -5,9 +5,9 @@ import json
 from AuthV3Util import addAuthParams
 
 # 您的应用ID
-APP_KEY = ''
+APP_KEY = '00a1628544ff1cc0'
 # 您的应用密钥
-APP_SECRET = ''
+APP_SECRET = 'Zhs4yuNZAkRnYv6ObvwQtymHVjfPvTVR'
 
 
 def createRequest(chinese_prompt):

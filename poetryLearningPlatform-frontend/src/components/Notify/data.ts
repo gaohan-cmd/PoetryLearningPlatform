@@ -26,7 +26,7 @@ export const notifyData: IListItem[] = [
 export const messageData: IListItem[] = [
   {
     avatar: "https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png",
-    title: "新年快乐！",
+    title: "  新年快乐！",
     description: "新年快乐！",
     datetime: "2023-01-01"
   },

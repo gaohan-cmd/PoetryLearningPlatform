@@ -18,7 +18,7 @@ import "vxe-table-plugin-element/dist/style.css"
 import "@/styles/index.scss"
 
 const app = createApp(App)
-
+app.config.globalProperties.BASE_URL = import.meta.env.VITE_BASE_API + "/poem"
 /** 加载插件 */
 loadPlugins(app)
 /** 加载全局 SVG */

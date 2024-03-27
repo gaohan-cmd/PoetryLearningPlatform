@@ -40,6 +40,102 @@ export const constantRoutes: RouteRecordRaw[] = [
     }
   },
   {
+    path: "/poem/search_poem_list/:query_method/:query_text",
+    component: Layout,
+    meta: {
+      hidden: true
+    },
+    children: [
+      {
+        path: "",
+        component: () => import("@/views/poem/PoemSearchList.vue"),
+        meta: {
+          hidden: true
+        },
+        props: true
+      }
+    ]
+  },
+  {
+    path: "/author",
+    component: Layout,
+    meta: {
+      hidden: true
+    },
+    children: [
+      {
+        path: "author",
+        component: () => import("@/views/poem/Author.vue"),
+        meta: {
+          hidden: true
+        },
+        props: true
+      }
+    ]
+  },
+  {
+    path: "/collection",
+    component: Layout,
+    meta: {
+      hidden: true
+    },
+    children: [
+      {
+        path: "collection",
+        component: () => import("@/views/poem/Collection.vue"),
+        meta: {
+          hidden: true
+        },
+        props: true
+      }
+    ]
+  },
+  {
+    path: "/rhythmic",
+    component: Layout,
+    meta: {
+      hidden: true
+    },
+    children: [
+      {
+        path: "rhythmic",
+        component: () => import("@/views/poem/Rhythmic.vue"),
+        meta: {
+          hidden: true
+        },
+        props: true
+      }
+    ]
+  },
+  {
+    path: "/search_poem_other_list/:query_method/:query_text",
+    component: Layout,
+    meta: {
+      hidden: true
+    },
+    children: [
+      {
+        path: "",
+        component: () => import("@/views/poem/PoemSearchByOther.vue"),
+        props: true
+      }
+    ]
+  },
+  {
+    path: "/poem/:poem_id",
+    component: Layout,
+    meta: {
+      hidden: true
+    },
+    children: [
+      {
+        path: "",
+        component: () => import("../components/Poem.vue"),
+        props: true
+      }
+    ]
+  },
+  {
     path: "/register",
     component: () => import("@/views/register/index.vue"),
     meta: {
@@ -53,28 +149,11 @@ export const constantRoutes: RouteRecordRaw[] = [
     children: [
       {
         path: "dashboard",
-        component: () => import("@/views/dashboard/index.vue"),
+        component: () => import("@/views/dashboard/Home.vue"),
         name: "Dashboard",
         meta: {
           title: "首页",
           svgIcon: "dashboard",
-          affix: true
-        }
-      }
-    ]
-  },
-  {
-    path: "/",
-    component: Layout,
-    redirect: "/detect",
-    children: [
-      {
-        path: "detect",
-        component: () => import("@/views/detect/index.vue"),
-        name: "Detect",
-        meta: {
-          title: "垃圾检测",
-          svgIcon: "helpFilled",
           affix: true
         }
       }
@@ -90,7 +169,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         component: () => import("@/views/learn/index.vue"),
         name: "Learn",
         meta: {
-          title: "诗词学习",
+          title: "问答学习",
           svgIcon: "shici",
           affix: true
         }
@@ -98,31 +177,49 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
-    path: "/link",
+    path: "/search-menu",
     component: Layout,
+    redirect: "/search-menu/search",
+    name: "SearchMenu",
+    meta: {
+      title: "诗词搜索",
+      elIcon: "menu"
+    },
     children: [
       {
-        path: "https://github.com/gaohan-cmd/PoetryLearningPlatform",
-        component: () => {},
-        name: "Link",
+        path: "search",
+        component: () => import("@/views/search-menu/search/index.vue"),
+        name: "Search",
         meta: {
-          title: "个人博客",
-          svgIcon: "Avatar"
+          title: "搜索",
+          svgIcon: "搜索"
         }
-      }
-    ]
-  },
-  {
-    path: "/Playground v2",
-    component: Layout,
-    children: [
+      },
       {
-        path: "https://hf-mirror.com/playgroundai/playground-v2-512px-base",
-        component: () => {},
-        name: "Link",
+        path: "author",
+        component: () => import("@/views/search-menu/author/index.vue"),
+        name: "Author",
         meta: {
-          title: "Playground v2🚀",
-          svgIcon: "link"
+          title: "诗人",
+          svgIcon: "诗人"
+        }
+      },
+      {
+        path: "rhythmic",
+        component: () => import("@/views/search-menu/rhythmic/index.vue"),
+        name: "Rhythmic",
+        meta: {
+          title: "词牌/韵律",
+          svgIcon: "韵律"
+        }
+      },
+      {
+        path: "collection",
+        component: () => import("@/views/search-menu/collection/index.vue"),
+        name: "Collection",
+        meta: {
+          title: "诗集",
+          svgIcon: "诗集"
         }
       }
     ]
@@ -201,171 +298,6 @@ export const constantRoutes: RouteRecordRaw[] = [
       }
     ]
   }
-  // {
-  //   path: "/menu",
-  //   component: Layout,
-  //   redirect: "/menu/menu1",
-  //   name: "Menu",
-  //   meta: {
-  //     title: "敬请期待",
-  //     svgIcon: "menu"
-  //   },
-  //   children: [
-  //     {
-  //       path: "menu1",
-  //       component: () => import("@/views/menu/menu1/index.vue"),
-  //       redirect: "/menu/menu1/menu1-1",
-  //       name: "Menu1",
-  //       meta: {
-  //         title: "menu1"
-  //       },
-  //       children: [
-  //         {
-  //           path: "menu1-1",
-  //           component: () => import("@/views/menu/menu1/menu1-1/index.vue"),
-  //           name: "Menu1-1",
-  //           meta: {
-  //             title: "menu1-1"
-  //           }
-  //         },
-  //         {
-  //           path: "menu1-2",
-  //           component: () => import("@/views/menu/menu1/menu1-2/index.vue"),
-  //           redirect: "/menu/menu1/menu1-2/menu1-2-1",
-  //           name: "Menu1-2",
-  //           meta: {
-  //             title: "menu1-2"
-  //           },
-  //           children: [
-  //             {
-  //               path: "menu1-2-1",
-  //               component: () => import("@/views/menu/menu1/menu1-2/menu1-2-1/index.vue"),
-  //               name: "Menu1-2-1",
-  //               meta: {
-  //                 title: "menu1-2-1"
-  //               }
-  //             },
-  //             {
-  //               path: "menu1-2-2",
-  //               component: () => import("@/views/menu/menu1/menu1-2/menu1-2-2/index.vue"),
-  //               name: "Menu1-2-2",
-  //               meta: {
-  //                 title: "menu1-2-2"
-  //               }
-  //             }
-  //           ]
-  //         },
-  //         {
-  //           path: "menu1-3",
-  //           component: () => import("@/views/menu/menu1/menu1-3/index.vue"),
-  //           name: "Menu1-3",
-  //           meta: {
-  //             title: "menu1-3"
-  //           }
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       path: "menu2",
-  //       component: () => import("@/views/menu/menu2/index.vue"),
-  //       name: "Menu2",
-  //       meta: {
-  //         title: "menu2"
-  //       }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: "/table",
-  //   component: Layout,
-  //   redirect: "/table/index",
-  //   children: [
-  //     {
-  //       path: "element-plus",
-  //       component: () => import("@/views/table/element-plus/index.vue"),
-  //       name: "Table",
-  //       meta: {
-  //         title: "用户管理",
-  //         elIcon: "Grid"
-  //       }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: "/unocss",
-  //   component: Layout,
-  //   redirect: "/unocss/index",
-  //   children: [
-  //     {
-  //       path: "index",
-  //       component: () => import("@/views/unocss/index.vue"),
-  //       name: "UnoCSS",
-  //       meta: {
-  //         title: "unocss",
-  //         svgIcon: "unocss"
-  //       }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: "/table",
-  //   component: Layout,
-  //   redirect: "/table/element-plus",
-  //   name: "Table",
-  //   meta: {
-  //     title: "表格",
-  //     elIcon: "Grid"
-  //   },
-  //   children: [
-  //     {
-  //       path: "element-plus",
-  //       component: () => import("@/views/table/element-plus/index.vue"),
-  //       name: "ElementPlus",
-  //       meta: {
-  //         title: "Element Plus",
-  //         keepAlive: true
-  //       }
-  //     },
-  //     {
-  //       path: "vxe-table",
-  //       component: () => import("@/views/table/vxe-table/index.vue"),
-  //       name: "VxeTable",
-  //       meta: {
-  //         title: "Vxe Table",
-  //         keepAlive: true
-  //       }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: "/hook-demo",
-  //   component: Layout,
-  //   redirect: "/hook-demo/use-fetch-select",
-  //   name: "HookDemo",
-  //   meta: {
-  //     title: "hook 示例",
-  //     elIcon: "Menu",
-  //     alwaysShow: true
-  //   },
-  //   children: [
-  //     {
-  //       path: "use-fetch-select",
-  //       component: () => import("@/views/hook-demo/use-fetch-select.vue"),
-  //       name: "UseFetchSelect",
-  //       meta: {
-  //         title: "useFetchSelect"
-  //       }
-  //     },
-  //     {
-  //       path: "use-fullscreen-loading",
-  //       component: () => import("@/views/hook-demo/use-fullscreen-loading.vue"),
-  //       name: "UseFullscreenLoading",
-  //       meta: {
-  //         title: "useFullscreenLoading"
-  //       }
-  //     }
-  //   ]
-  // }
 ]
 
 /**

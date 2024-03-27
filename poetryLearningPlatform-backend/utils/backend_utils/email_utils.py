@@ -20,7 +20,7 @@ class EmailOP:
         self.smtp.login(user=self.user, password=self.password)  # 登录邮箱
 
     def send(self, subject, body, recipient_name, recipient_email,
-             sender_name='基于文生图大模型的古诗词学习平台'):
+             sender_name='1608079002@qq.com'):
         """
         subject：邮件主题
         body：邮件正文
@@ -44,8 +44,7 @@ email_op = EmailOP(host=config.MAIL_SERVER,
 
 if __name__ == '__main__':
     captcha = random.randint(10000, 99999)
-    email_op.send(recipient_name='1030078310@qq.com',
-                  recipient_email='1030078310@qq.com',
+    email_op.send(recipient_name='1608079002@qq.com',
+                  recipient_email='1608079002@qq.com',
                   subject='测试邮件',
                   body=f'您的验证码：{captcha}')
-

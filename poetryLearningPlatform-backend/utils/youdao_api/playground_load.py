@@ -9,13 +9,13 @@ from utils.gpt.prompt_utils import *
 
 
 # 您的应用ID
-APP_KEY = ''
+APP_KEY = '00a1628544ff1cc0'
 # 您的应用密钥
-APP_SECRET = ''
+APP_SECRET = 'EhbsXAgBYRUPXt1FZ6APQKyXg4crVkIA'
 
 # 修改成自己的api key和secret key
-API_KEY = ""
-SECRET_KEY = ""
+API_KEY = "XiyzILmvNdOVvpr9GqhQjJVb"
+SECRET_KEY = "uW4G7oAV3QqcZRdRnfsW7xQ1t8rOwfPo"
 
 
 def createRequest(chinese_prompt):
@@ -80,7 +80,7 @@ def get_explain_respond(inputstr):
 def generate_img(chinese_prompt):
     pipe = DiffusionPipeline.from_pretrained(
         # "/home/sjc/Program/playground-v2-512px-base",
-        "/work/gaohan/pythonProjects/PoetryLearningPlatform/poetryLearningPlatform-backend/playground-v2-512px-base",
+        "/work/gaohan/pythonProjects/PoetryLearningPlatform/poetryLearningPlatform-backend/models/playground-v2-512px-base",
         torch_dtype=torch.float16,
         use_safetensors=True,
         add_watermarker=False,
