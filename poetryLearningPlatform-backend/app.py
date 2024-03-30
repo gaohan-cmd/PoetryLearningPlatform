@@ -20,7 +20,8 @@ from blueprints.detect_bp import bp as detect_bp
 from blueprints.chat_bp import bp as chat_bp
 from blueprints.poem_bp import bp as poem_bp
 
-
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "4"
 
 '''
 前后端code约定：
@@ -86,6 +87,7 @@ if __name__ == "__main__":
     repo_dir = os.getcwd()
     parser = argparse.ArgumentParser(description="Flask app exposing poetry learning platform API")
     parser.add_argument("--port", default=5003, type=int, help="port number")
+    parser.add_argument("--local_rank", default=0, type=int, help="--")
     args = parser.parse_args()
     test_database_connection()
     print_cyan('项目已启动')
