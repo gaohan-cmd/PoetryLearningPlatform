@@ -14,6 +14,7 @@ from utils.backend_utils.response_utils import response
 from utils.backend_utils.colorprinter import *
 from utils.gpt.create_wenxin_respond import *
 from utils.youdao_api.playground_load import *
+from utils.youdao_api.moellava_load import *
 
 '''
 前后端code约定：
@@ -116,6 +117,18 @@ def generate_image_playground():
         'originalBase64': original_base64
     }
     return response(code=0, message='图片生成已完成', data=response_data)
+
+@bp.route('/generate/moellava', methods=['POST'])
+# def generate_anwsers_playground(chinese_prompt, image):
+def generate_moellava_anwsers():
+    # 获取前端的中文问题 + youdao_api路径下读取的图片，返回回答的文字
+    chinese_prompt = request.json.get('poetryQuestion', '').strip()
+    image = "image.png"  #在哪里加载图片
+    answer = generate_anwser(chinese_prompt, image)
+    response_data = {
+        'answer': answer
+    }
+    return response(code=0, message='回答已生成', data=response_data)
 
 
 def generate_image(chinese_prompt):

@@ -5,6 +5,10 @@ import json
 from utils.youdao_api.AuthV3Util import addAuthParams
 from utils.gpt.prompt_utils import *
 
+from PIL import Image
+from io import BytesIO
+from transformers import TextStreamer
+
 # from AuthV3Util import addAuthParams
 
 
@@ -98,7 +102,7 @@ def generate_img(chinese_prompt):
     image = pipe(prompt=prompt, width=512, height=512).images[0]
 
     # 图片保存
-    image.save("astronaut_in_jungle.png")
+    image.save("image.png")
     return image
 
 
@@ -107,3 +111,7 @@ if __name__ == '__main__':
 
 整首诗语言简练，意象丰富，通过沙漠、河流、烽烟、落日等元素，构建了一幅壮美的画面。"""
     generate_img(chinese_prompt)
+
+    # image = 'moellava/serve/examples/extreme_ironing.jpg'
+    # inp = 'What is unusual about this image?'
+    # generate_anwser(inp, image)
