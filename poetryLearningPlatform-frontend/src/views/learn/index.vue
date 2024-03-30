@@ -1,13 +1,21 @@
 <script lang="ts" setup>
 import { generatePicByPlay, generateTxtByWenXin } from "@/api/learn"
 import { computed, reactive, ref } from "vue"
+import { useRoute } from "vue-router"
 
 defineOptions({
   name: "Learn"
 })
+const route = useRoute()
+const inputValueFromRoute = route.query.inputValue as string
 const inputValue = ref("")
+
+if (inputValueFromRoute) {
+  inputValue.value = inputValueFromRoute.replace(/<br>/g, "\n")
+}
 const poetryExplain = ref("")
 const loading = ref(false)
+
 /** 获取文心一言回答 */
 const handleConfirm = () => {
   if (inputValue.value) {
@@ -84,7 +92,7 @@ const dataURItoBlob = (dataURI: any) => {
   <div class="app-container">
     <el-card v-loading="loading" shadow="never" class="search-wrapper">
       <el-row>
-        <el-col :span="24">
+        <el-col :span="16">
           <div class="input-wrapper">
             <el-input
               v-model="inputValue"
@@ -92,6 +100,7 @@ const dataURItoBlob = (dataURI: any) => {
               prefix-icon="el-icon-edit-outline"
               clearable
               class="poetry-input"
+              type="textarea"
             />
             <el-button type="primary" @click="handleConfirm">诗词赏析</el-button>
             <el-button type="primary" @click="handleImage">图像生成</el-button>
@@ -179,6 +188,11 @@ const dataURItoBlob = (dataURI: any) => {
 .poetry-input {
   flex: 1;
   margin-right: 10px;
+  font-size: 16px;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
 }
 
 .response-textarea {

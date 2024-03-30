@@ -14,7 +14,7 @@ HOSTNAME = '10.129.86.238'
 PORT = 3306
 USERNAME = 'root'
 PASSWORD = 'root'
-DATABASE = 'poetry_learning_platform'
+DATABASE = 'yolov5_garbage_detect'
 DB_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8mb4'.format(USERNAME, PASSWORD, HOSTNAME, PORT, DATABASE)
 # DB_URI = f'mysql+pymysql://{USERNAME}:{PASSWORD}@{HOSTNAME}:{PORT}/{DATABASE}?charset=utf8mb4'
 SQLALCHEMY_DATABASE_URI = DB_URI

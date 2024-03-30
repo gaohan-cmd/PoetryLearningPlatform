@@ -148,7 +148,7 @@ export const constantRoutes: RouteRecordRaw[] = [
     redirect: "/dashboard",
     children: [
       {
-        path: "dashboard",
+        path: "",
         component: () => import("@/views/dashboard/Home.vue"),
         name: "Dashboard",
         meta: {

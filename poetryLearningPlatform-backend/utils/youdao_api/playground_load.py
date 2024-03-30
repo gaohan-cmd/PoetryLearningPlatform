@@ -56,7 +56,7 @@ def get_access_token():
 
 
 # 获取回复
-def get_explain_respond(inputstr):
+def get_explain_respond_poem(inputstr):
     url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/eb-instant?access_token=" + get_access_token()
     # 注意message必须是奇数条
     payload = json.dumps({
@@ -87,7 +87,7 @@ def generate_img(chinese_prompt):
         variant="fp16",
     )
     pipe.to("cuda")
-    chinese_prompt = get_explain_respond(chinese_prompt)
+    chinese_prompt = get_explain_respond_poem(chinese_prompt)
     # 有道词典翻译提示词
     dict = json.loads(createRequest(chinese_prompt))
     english_prompt = dict["translation"]
