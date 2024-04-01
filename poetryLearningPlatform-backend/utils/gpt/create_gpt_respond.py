@@ -4,7 +4,7 @@ import time
 # import config
 
 # os.environ['OPENAI_API_KEY'] =  config.OPENAI_API_KEY
-os.environ['OPENAI_API_KEY'] = "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"
+os.environ['OPENAI_API_KEY'] = ""
 openai.api_key = os.getenv("OPENAI_API_KEY")
 print(openai.Model.list())
 messages = get_prompt()
