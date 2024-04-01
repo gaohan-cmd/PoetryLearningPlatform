@@ -4,7 +4,7 @@ import requests
 import json
 from utils.youdao_api.AuthV3Util import addAuthParams
 from utils.gpt.prompt_utils import *
-
+import config
 from PIL import Image
 from io import BytesIO
 from transformers import TextStreamer
@@ -12,14 +12,10 @@ from transformers import TextStreamer
 # from AuthV3Util import addAuthParams
 
 
-# 您的应用ID
-APP_KEY = '00a1628544ff1cc0'
-# 您的应用密钥
-APP_SECRET = 'EhbsXAgBYRUPXt1FZ6APQKyXg4crVkIA'
-
-# 修改成自己的api key和secret key
-API_KEY = "XiyzILmvNdOVvpr9GqhQjJVb"
-SECRET_KEY = "uW4G7oAV3QqcZRdRnfsW7xQ1t8rOwfPo"
+APP_KEY = config.APP_KEY
+APP_SECRET = config.APP_SECRET
+API_KEY = config.API_KEY
+SECRET_KEY = config.SECRET_KEY
 
 
 def createRequest(chinese_prompt):

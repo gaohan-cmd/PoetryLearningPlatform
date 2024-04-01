@@ -1,18 +1,15 @@
 from prompt_utils import *
 import openai
 import time
+# import config
 
-
-# Set your own API
-
-
-os.environ['OPENAI_API_KEY'] = ""
+# os.environ['OPENAI_API_KEY'] =  config.OPENAI_API_KEY
+os.environ['OPENAI_API_KEY'] = "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"
 openai.api_key = os.getenv("OPENAI_API_KEY")
 print(openai.Model.list())
 messages = get_prompt()
 messages.append({"role": "user", "content": "白日依山尽，黄河入海流。"})
 
-time.sleep(6)
 while True:
     try:
         response = openai.ChatCompletion.create(

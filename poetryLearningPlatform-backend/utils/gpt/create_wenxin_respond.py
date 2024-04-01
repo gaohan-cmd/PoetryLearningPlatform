@@ -1,11 +1,12 @@
 import requests
 import json
+import config
+# from prompt_utils import *
 from utils.gpt.prompt_utils import *
 
 
-# 修改成自己的api key和secret key
-API_KEY = "aYqTGFx8T0ynfDZsUMg9QR8p"
-SECRET_KEY = "urKh29M5bCAdOBLb5vAW1CCSoHZcic7J"
+API_KEY = config.API_KEY
+SECRET_KEY = config.SECRET_KEY
 
 prompt = get_prompt_zn()
 
@@ -28,7 +29,8 @@ def get_explain_respond(inputstr):
     }
 
     res = requests.request("POST", url, headers=headers, data=payload).json()
-    return (res['result'])
+    # 返回处理后的结果
+    return res['result']
 
 
 def get_access_token():
@@ -42,4 +44,4 @@ def get_access_token():
 
 
 if __name__ == '__main__':
-    get_explain_respond()
+    get_explain_respond("白日依山尽，黄河入海流。")

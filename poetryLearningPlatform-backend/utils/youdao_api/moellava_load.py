@@ -1,4 +1,3 @@
-from diffusers import DiffusionPipeline
 import torch
 import requests
 import json
@@ -7,34 +6,29 @@ from utils.youdao_api.AuthV3Util import addAuthParams
 from utils.gpt.prompt_utils import *
 import sys
 import os
+
 sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..")))
 # from AuthV3Util import addAuthParams
 # from gpt.prompt_utils import *
 
 
-
-from moellava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
-from moellava.conversation import conv_templates, SeparatorStyle
-from moellava.model.builder import load_pretrained_model
-from moellava.utils import disable_torch_init
-from moellava.mm_utils import process_images, tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria
-
+from models.moellava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, \
+    DEFAULT_IM_END_TOKEN
+from models.moellava.conversation import conv_templates, SeparatorStyle
+from models.moellava.model.builder import load_pretrained_model
+from models.moellava.utils import disable_torch_init
+from models.moellava.mm_utils import process_images, tokenizer_image_token, get_model_name_from_path, \
+    KeywordsStoppingCriteria
 from PIL import Image
-from io import BytesIO
-from transformers import TextStreamer
+import config
 
 # from AuthV3Util import addAuthParams
 
 
-# 您的应用ID
-APP_KEY = ''
-# 您的应用密钥
-APP_SECRET = ''
-
-# 修改成自己的api key和secret key
-APP_KEY = '00a1628544ff1cc0'
-# 您的应用密钥
-APP_SECRET = 'EhbsXAgBYRUPXt1FZ6APQKyXg4crVkIA'
+APP_KEY = config.APP_KEY
+APP_SECRET = config.APP_SECRET
+API_KEY = config.API_KEY
+SECRET_KEY = config.SECRET_KEY
 
 
 def createRequest(chinese_prompt):
@@ -74,28 +68,6 @@ def get_access_token():
     return str(requests.post(url, params=params).json().get("access_token"))
 
 
-# 获取回复
-# def get_explain_respond(inputstr):
-#     url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/eb-instant?access_token=" + get_access_token()
-#     # 注意message必须是奇数条
-#     payload = json.dumps({
-#         "messages": [
-#             {
-#                 "role": "user",
-#                 "content": inputstr
-#             }
-#         ],
-#         "system": prompt
-#     })
-#     headers = {
-#         'Content-Type': 'application/json'
-#     }
-#
-#     res = requests.request("POST", url, headers=headers, data=payload).json()
-#     # 返回处理后的结果
-#     return res['result']
-
-
 def generate_anwser(chinese_prompt, image):
     disable_torch_init()
     # image = '/work/songyukun/projects/PoetryLearningPlatform/poetryLearningPlatform-backend/utils/moellava/serve/examples/desert.jpg'
@@ -107,7 +79,7 @@ def generate_anwser(chinese_prompt, image):
     english_prompt = dict["translation"][0]
     print(english_prompt)
     # english_prompt = chinese_prompt
-    model_path = '/work/songyukun/projects/MoE-LLaVA/MoE-LLaVA-StableLM-1.6B-4e'  # LanguageBind/MoE-LLaVA-Qwen-1.8B-4e or LanguageBind/MoE-LLaVA-StableLM-1.6B-4e
+    model_path = '/work/gaohan/pythonProjects/PoetryLearningPlatform/poetryLearningPlatform-backend/models/moellava/MoE-LLaVA-StableLM-1.6B-4e'  # LanguageBind/MoE-LLaVA-Qwen-1.8B-4e or LanguageBind/MoE-LLaVA-StableLM-1.6B-4e
     device = 'cuda'
     load_4bit, load_8bit = False, False  # FIXME: Deepspeed support 4bit or 8bit?
     model_name = get_model_name_from_path(model_path)
@@ -119,8 +91,7 @@ def generate_anwser(chinese_prompt, image):
     roles = conv.roles
     image_tensor = image_processor.preprocess(Image.open(image).convert('RGB'), return_tensors='pt')['pixel_values'].to(
         model.device, dtype=torch.float16)
-
-    print(f"{roles[1]}: {english_prompt}")
+    # print(f"{roles[1]}: {english_prompt}")
     inp = DEFAULT_IMAGE_TOKEN + '\n' + english_prompt
     conv.append_message(conv.roles[0], inp)
     conv.append_message(conv.roles[1], None)

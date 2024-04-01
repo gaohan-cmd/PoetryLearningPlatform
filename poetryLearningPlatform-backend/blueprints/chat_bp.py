@@ -123,7 +123,7 @@ def generate_image_playground():
 def generate_moellava_anwsers():
     # 获取前端的中文问题 + youdao_api路径下读取的图片，返回回答的文字
     chinese_prompt = request.json.get('poetryQuestion', '').strip()
-    image = "image.png"  #在哪里加载图片
+    image = "utils/youdao_api/image.png"  #在哪里加载图片
     answer = generate_anwser(chinese_prompt, image)
     response_data = {
         'answer': answer

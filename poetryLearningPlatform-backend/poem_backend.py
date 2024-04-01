@@ -213,3 +213,50 @@ def query_random_poem() -> dict:
     query_s = f"SELECT p.p_id FROM poetry as p ORDER BY RAND() LIMIT 1"
     p_id = db_select(query_s)[1][0]["p_id"]
     return query_poem_by_id(p_id)
+
+
+def search_poem_cloud(query_id: int = -1, query_type: str = "collection") -> dict:
+    res = {
+        'num_res': 0,
+        'result': [],
+    }
+    added_ids = set()
+    if query_id is None or query_id == -1:
+        return res
+
+    if query_type == "collection":
+        query_s = f"SELECT p.p_id, p.p_title, a.a_id, a.a_name, r.r_id, r.r_name, p.p_paragraph " \
+                  f"FROM poetry as p " \
+                  f" LEFT JOIN author as a ON p.p_author_id = a.a_id " \
+                  f" LEFT JOIN rhythmic as r ON p.p_rhythmic_id = r.r_id " \
+                  f" LEFT JOIN collection as c ON p.p_collection_id = c.c_id " \
+                  f"WHERE c.c_id = {query_id}"
+    elif query_type == "rhythmic":
+        query_s = f"SELECT p.p_id, p.p_title, a.a_id, a.a_name, r.r_id, r.r_name, p.p_paragraph " \
+                  f"FROM poetry as p " \
+                  f" LEFT JOIN author as a ON p.p_author_id = a.a_id " \
+                  f" LEFT JOIN rhythmic as r ON p.p_rhythmic_id = r.r_id " \
+                  f"WHERE r.r_id = {query_id}"
+    elif query_type == "author":
+        query_s = f"SELECT p.p_id, p.p_title, a.a_id, a.a_name, r.r_id, r.r_name, p.p_paragraph " \
+                  f"FROM poetry as p " \
+                  f" LEFT JOIN author as a ON p.p_author_id = a.a_id " \
+                  f" LEFT JOIN rhythmic as r ON p.p_rhythmic_id = r.r_id " \
+                  f"WHERE a.a_id = {query_id}"
+    res_s = db_select(query_s)
+    for poem in res_s[1]:
+        if poem['p_id'] in added_ids:
+            pass
+        else:
+            # poem['p_title'] = t2s(poem['p_title'])
+            # poem['a_name'] = t2s(poem['a_name'])
+            # poem['p_paragraph'] = t2s(poem['p_paragraph'])
+            res['result'].append(poem)
+            res['num_res'] += 1
+            added_ids.add(poem['p_id'])
+    return res
+
+
+if __name__ == '__main__':
+    res = search_poem_cloud(6, "collection")
+    print(res)

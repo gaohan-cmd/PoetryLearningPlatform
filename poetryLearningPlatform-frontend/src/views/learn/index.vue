@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { generatePicByPlay, generateTxtByWenXin } from "@/api/learn"
+import { generatePicByPlay, generateTxtByWenXin, generateAnswerByMoellava } from "@/api/learn"
 import { computed, reactive, ref } from "vue"
 import { useRoute } from "vue-router"
 
@@ -9,13 +9,21 @@ defineOptions({
 const route = useRoute()
 const inputValueFromRoute = route.query.inputValue as string
 const inputValue = ref("")
+const inputValueQuestion = ref("")
 
 if (inputValueFromRoute) {
   inputValue.value = inputValueFromRoute.replace(/<br>/g, "\n")
 }
 const poetryExplain = ref("")
 const loading = ref(false)
-
+/** 获取诗词回答 */
+const handleConfirmQuestion = () => {
+  if (inputValueQuestion.value) {
+    getGenerateAnswerByMoellava(inputValueQuestion.value)
+  } else {
+    // 输入为空的处理逻辑
+  }
+}
 /** 获取文心一言回答 */
 const handleConfirm = () => {
   if (inputValue.value) {
@@ -38,6 +46,19 @@ const getGenerateTxtByWenXin = async (inputText: string) => {
   try {
     const response = await generateTxtByWenXin({ poetryContent: inputText })
     poetryExplain.value = response.data.poetryExplain.replace(/\\n/g, "\n").slice(0, -1)
+  } catch (error) {
+    poetryExplain.value = "请求失败，请重试"
+    console.error(error)
+  } finally {
+    loading.value = false
+  }
+}
+
+const getGenerateAnswerByMoellava = async (inputText: string) => {
+  loading.value = true
+  try {
+    const response = await generateAnswerByMoellava({ question: inputText })
+    poetryExplain.value = response.data.answer.replace(/\\n/g, "\n").slice(0, -1)
   } catch (error) {
     poetryExplain.value = "请求失败，请重试"
     console.error(error)
@@ -118,9 +139,31 @@ const dataURItoBlob = (dataURI: any) => {
               :fit="'scaleDown'"
               :preview-src-list="[detectImageData.originalImageUrl]"
             />
-            <div v-else class="image-placeholder">原始图片</div>
+            <div v-else class="image-placeholder">输入图片</div>
           </div>
         </el-col>
+        <el-col :span="10">
+          <el-input type="textarea" autosize v-model="poetryExplain" class="response-textarea" readonly />
+        </el-col>
+      </el-row>
+    </el-card>
+    <el-card v-loading="loading" shadow="never" class="search-wrapper">
+      <el-row>
+        <el-col :span="16">
+          <div class="input-wrapper">
+            <el-input
+              v-model="inputValueQuestion"
+              placeholder="请输入您需要问答的问题"
+              prefix-icon="el-icon-edit-outline"
+              clearable
+              class="poetry-input"
+              type="textarea"
+            />
+            <el-button type="primary" @click="handleConfirmQuestion">诗词对话</el-button>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
         <el-col :span="10">
           <el-input type="textarea" autosize v-model="poetryExplain" class="response-textarea" readonly />
         </el-col>

@@ -218,11 +218,21 @@ export default defineComponent({
       next_disabled: false,
       query_link: this.BASE_URL,
       is_mobile: false,
-      n_col: 5
+      n_col: 5,
+      isGridCollapsed: false, // 控制网格是否折叠
+      collapsedRows: 2 // 控制折叠的行数
     }
   },
   setup() {
     return {}
+  },
+  computed: {
+    gridCollapsed() {
+      return this.isGridCollapsed
+    },
+    gridCollapsedRows() {
+      return this.isGridCollapsed ? this.collapsedRows : null
+    }
   },
   props: {
     // eslint-disable-next-line vue/require-prop-type-constructor

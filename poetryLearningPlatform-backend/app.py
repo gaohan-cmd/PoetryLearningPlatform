@@ -21,7 +21,6 @@ from blueprints.chat_bp import bp as chat_bp
 from blueprints.poem_bp import bp as poem_bp
 
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "4"
 
 '''
 前后端code约定：

@@ -40,6 +40,23 @@ export const constantRoutes: RouteRecordRaw[] = [
     }
   },
   {
+    path: "/poem/cloud/:query_method/:query_id",
+    component: Layout,
+    meta: {
+      hidden: true
+    },
+    children: [
+      {
+        path: "",
+        component: () => import("@/views/poem/PoemCloud.vue"),
+        meta: {
+          hidden: true
+        },
+        props: true
+      }
+    ]
+  },
+  {
     path: "/poem/search_poem_list/:query_method/:query_text",
     component: Layout,
     meta: {

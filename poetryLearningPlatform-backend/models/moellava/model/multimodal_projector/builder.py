@@ -4,10 +4,10 @@ import re
 
 from einops import rearrange
 
-from moellava.model.multimodal_projector.pool_block import Pool_Block
-from moellava.model.multimodal_projector.qformer import qformer_config_template, Blip2Model, cheap_qformer_config_template, \
+from models.moellava.model.multimodal_projector.pool_block import Pool_Block
+from models.moellava.model.multimodal_projector.qformer import qformer_config_template, Blip2Model, cheap_qformer_config_template, \
     Cheap_Blip2Model
-from moellava.model.multimodal_projector.simple_block import SimpleBlock, Cheap_SimpleBlock
+from models.moellava.model.multimodal_projector.simple_block import SimpleBlock, Cheap_SimpleBlock
 
 
 class IdentityMap(nn.Module):
