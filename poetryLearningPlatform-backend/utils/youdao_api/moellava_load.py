@@ -27,6 +27,8 @@ import config
 
 APP_KEY = config.APP_KEY
 APP_SECRET = config.APP_SECRET
+APP_KEY_C = config.APP_KEY_C
+APP_SECRET_C = config.APP_SECRET_C
 API_KEY = config.API_KEY
 SECRET_KEY = config.SECRET_KEY
 
@@ -42,6 +44,22 @@ def createRequest(chinese_prompt):
     data = {'q': q, 'from': lang_from, 'to': lang_to}
 
     addAuthParams(APP_KEY, APP_SECRET, data)
+
+    header = {'Content-Type': 'application/x-www-form-urlencoded'}
+    res = doCall('https://openapi.youdao.com/api', header, data, 'post')
+    return str(res.content, 'utf-8')
+
+def createRequest_C(english_prompt):
+    '''
+    note: 将下列变量替换为需要请求的参数
+    '''
+    q = english_prompt
+    lang_from = 'en'
+    lang_to = 'zh-CHS'
+
+    data = {'q': q, 'from': lang_from, 'to': lang_to}
+
+    addAuthParams(APP_KEY_C, APP_SECRET_C, data)
 
     header = {'Content-Type': 'application/x-www-form-urlencoded'}
     res = doCall('https://openapi.youdao.com/api', header, data, 'post')
@@ -113,7 +131,9 @@ def generate_anwser(chinese_prompt, image):
 
     outputs = tokenizer.decode(output_ids[0, input_ids.shape[1]:], skip_special_tokens=True).strip()
     print(outputs)
-    return outputs
+    dict = json.loads(createRequest_C(outputs))
+    chinese_anwser = dict["translation"][0]
+    return chinese_anwser
 
 
 if __name__ == '__main__':
@@ -124,4 +144,5 @@ if __name__ == '__main__':
 
     image = 'moellava/serve/examples/extreme_ironing.jpg'
     inp = 'What is unusual about this image?'
+    t = json.loads(createRequest_C(inp))
     generate_anwser(inp, image)
