@@ -8,7 +8,7 @@ import config
 from PIL import Image
 from io import BytesIO
 from transformers import TextStreamer
-from load_text2img_model import pipe
+from app import pipe
 from utils.youdao_api.AuthV3Util import addAuthParams
 import config
 # from AuthV3Util import addAuthParams
