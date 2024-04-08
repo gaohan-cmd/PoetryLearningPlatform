@@ -21,7 +21,7 @@ from models.moellava.mm_utils import process_images, tokenizer_image_token, get_
     KeywordsStoppingCriteria
 from PIL import Image
 import config
-from app import MOELLAVA_MODEL
+from load import MOELLAVA_MODEL
 # from AuthV3Util import addAuthParams
 
 
