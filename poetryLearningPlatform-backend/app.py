@@ -19,7 +19,6 @@ from blueprints.chat_bp import bp as chat_bp
 from blueprints.poem_bp import bp as poem_bp
 from flasgger import Swagger
 import os
-
 '''
 前后端code约定：
 code: 0 成功 前端无消息弹窗
@@ -77,6 +76,34 @@ def test_database_connection():
             else:
                 print_red('Database connection failed')
 
+from diffusers import DiffusionPipeline
+import torch
+import requests
+import json
+from utils.youdao_api.AuthV3Util import addAuthParams
+from utils.gpt.prompt_utils import *
+from models.moellava.mm_utils import get_model_name_from_path
+from models.moellava.model.builder import load_pretrained_model
+#文生图模型
+class Diffusion_model:
+    def __init__(self) -> None:
+        self.model = DiffusionPipeline.from_pretrained(
+        # "/home/sjc/Program/playground-v2-512px-base",
+        "/work/gaohan/pythonProjects/PoetryLearningPlatform/poetryLearningPlatform-backend/models/playground-v2-512px-base",
+        torch_dtype=torch.float16,
+        use_safetensors=True,
+        add_watermarker=False,
+        variant="fp16",
+    ).to("cuda")
+#图文回答模型
+class MOELLAVA_LOAD:
+    def __init__(self) -> None:
+        self.model_path = '/work/gaohan/pythonProjects/PoetryLearningPlatform/poetryLearningPlatform-backend/models/moellava/MoE-LLaVA-StableLM-1.6B-4e'  # LanguageBind/MoE-LLaVA-Qwen-1.8B-4e or LanguageBind/MoE-LLaVA-StableLM-1.6B-4e
+        self.device = 'cuda'
+        self.load_4bit, self.load_8bit = False, False  # FIXME: Deepspeed support 4bit or 8bit?
+        self.model_name = get_model_name_from_path(self.model_path)
+        self.tokenizer, self.model, self.processor, self.context_len = load_pretrained_model(self.model_path, None, self.model_name, self.load_8bit, self.load_4bit,
+                                                                     device=self.device)
 
 if __name__ == "__main__":
     repo_dir = os.getcwd()
@@ -88,3 +115,6 @@ if __name__ == "__main__":
     print_cyan('项目已启动')
     print_cyan(f'当前工作目录: {repo_dir}')
     app.run(host="0.0.0.0", port=args.port, debug=True)
+    pipe = Diffusion_model()
+    MOELLAVA_MODEL = MOELLAVA_LOAD()
+    print_cyan('模型已加载')

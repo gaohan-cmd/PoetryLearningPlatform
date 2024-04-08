@@ -8,7 +8,9 @@ import config
 from PIL import Image
 from io import BytesIO
 from transformers import TextStreamer
-
+from app import pipe
+from utils.youdao_api.AuthV3Util import addAuthParams
+import config
 # from AuthV3Util import addAuthParams
 
 
@@ -78,15 +80,6 @@ def get_explain_respond_poem(inputstr):
 
 
 def generate_img(chinese_prompt):
-    pipe = DiffusionPipeline.from_pretrained(
-        # "/home/sjc/Program/playground-v2-512px-base",
-        "/work/gaohan/pythonProjects/PoetryLearningPlatform/poetryLearningPlatform-backend/models/playground-v2-512px-base",
-        torch_dtype=torch.float16,
-        use_safetensors=True,
-        add_watermarker=False,
-        variant="fp16",
-    )
-    pipe.to("cuda")
     chinese_prompt = get_explain_respond_poem(chinese_prompt)
     # 有道词典翻译提示词
     dict = json.loads(createRequest(chinese_prompt))
