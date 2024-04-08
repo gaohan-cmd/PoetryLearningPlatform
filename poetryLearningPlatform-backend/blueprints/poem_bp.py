@@ -1,14 +1,11 @@
-import os
-from pprint import pprint
-
-from flask import Blueprint, request, render_template, g, redirect, session, jsonify
+from flask import Blueprint, jsonify
 import flask
 from utils.backend_utils.dir_utils import *
 from utils.backend_utils.colorprinter import *
 from utils.gpt.create_wenxin_respond import *
 from utils.youdao_api.playground_load import *
 from poem_backend import *
-from utils.backend_utils.response_utils import response
+from flasgger import swag_from
 
 '''
 前后端code约定：
@@ -26,10 +23,9 @@ code: 207 前端通知弹窗Info
 
 bp = Blueprint(name='poem', import_name=__name__)
 
-DATETIME_FORMAT = "%Y-%m-%d_%H-%M-%S-%f"
-
 
 @bp.route("/search/poem", methods=['GET'])
+@swag_from('swagger_yml/poem/search_poem.yml')
 def search_poem_controller():
     args = dict(flask.request.args)
     query_str = args['query_str']
@@ -41,6 +37,7 @@ def search_poem_controller():
 
 
 @bp.route("/query/poem_by_id", methods=['GET'])
+@swag_from('swagger_yml/poem/query_poem_by_id.yml')
 def query_poem_by_id_controller():
     args = dict(flask.request.args)
     p_id = int(args['p_id'])
@@ -49,6 +46,7 @@ def query_poem_by_id_controller():
 
 
 @bp.route("/search/author", methods=['GET'])
+@swag_from('swagger_yml/poem/search_author.yml')
 def search_author_controller():
     args = dict(flask.request.args)
     query_str = args['query_str']
@@ -59,6 +57,7 @@ def search_author_controller():
 
 
 @bp.route("/query/poem_by_author", methods=['GET'])
+@swag_from('swagger_yml/poem/query_poem_by_author.yml')
 def query_poem_by_author_controller():
     args = dict(flask.request.args)
     a_id = args['a_id']
@@ -69,6 +68,7 @@ def query_poem_by_author_controller():
 
 
 @bp.route("/display/author", methods=['GET'])
+@swag_from('swagger_yml/poem/display_author.yml')
 def display_author_controller():
     args = dict(flask.request.args)
     items_per_page = int(args.get('items_per_page', 100))
@@ -76,6 +76,7 @@ def display_author_controller():
 
 
 @bp.route("/display/rhythmic", methods=['GET'])
+@swag_from('swagger_yml/poem/display_rhythmic.yml')
 def display_rhythmic_controller():
     args = dict(flask.request.args)
     items_per_page = int(args.get('items_per_page', 100))
@@ -84,6 +85,7 @@ def display_rhythmic_controller():
 
 
 @bp.route("/search/rhythmic", methods=['GET'])
+@swag_from('swagger_yml/poem/search_rhythmic.yml')
 def search_rhythmic_controller():
     args = dict(flask.request.args)
     r_name = args['r_name']
@@ -94,6 +96,7 @@ def search_rhythmic_controller():
 
 
 @bp.route("/query/poem_by_rhythmic", methods=['GET'])
+@swag_from('swagger_yml/poem/query_poem_by_rhythmic.yml')
 def query_poem_by_rhythmic_controller():
     args = dict(flask.request.args)
     r_id = int(args['r_id'])
@@ -104,11 +107,13 @@ def query_poem_by_rhythmic_controller():
 
 
 @bp.route("/display/collection", methods=['GET'])
+@swag_from('swagger_yml/poem/display_collection.yml')
 def display_collection_controller():
     return jsonify(display_collection())
 
 
 @bp.route("/query/poem_by_collection", methods=['GET'])
+@swag_from('swagger_yml/poem/query_poem_by_collection.yml')
 def query_poem_by_collection_controller():
     args = dict(flask.request.args)
     c_id = int(args['c_id'])
@@ -119,5 +124,6 @@ def query_poem_by_collection_controller():
 
 
 @bp.route("/query/random_poem", methods=['GET'])
+@swag_from('swagger_yml/poem/query_random_poem.yml')
 def query_random_poem_controller():
     return jsonify(query_random_poem())

@@ -12,7 +12,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from blueprints.froms.login_form import LoginForm
 from blueprints.froms.register_form import RegisterForm
 from utils.backend_utils.response_utils import response
-
+from flasgger import swag_from
 '''
 前后端code约定：
 code: 0 成功 前端无消息弹窗
@@ -33,6 +33,7 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 # 获取登陆验证码
 @bp.route('/login/captcha', methods=['GET'])
+@swag_from('swagger_yml/auth/login_captcha.yml')
 def get_login_captcha():
     # 生成验证码
     captcha = ''.join(random.sample(string.ascii_letters + string.digits, 5))
@@ -45,6 +46,7 @@ def get_login_captcha():
 
 
 @bp.route('/register/captcha', methods=['GET', 'POST'])
+@swag_from('swagger_yml/auth/register_captcha.yml')
 def get_register_captcha():
     # /captcha/email/<email> 方法中需要接受参数 def get_register_captcha(email)
     # /captcha/email?email=xxx@qq.com
@@ -85,6 +87,7 @@ def get_register_captcha():
 
 
 @bp.route('/user/login', methods=['POST'])
+@swag_from('swagger_yml/auth/user_login.yml')
 def login():
     json_data = request.get_json()
     # 获取表单数据
@@ -131,6 +134,7 @@ def login():
 # GET：从服务器获取数据
 # POST：将客户端的数据提交给服务器
 @bp.route('/user/register', methods=['POST'])
+@swag_from('swagger_yml/auth/user_register.yml')
 def register():
     json_data = request.get_json()
     form = RegisterForm(request.form, data=json_data)
@@ -156,6 +160,7 @@ def register():
 
 
 @bp.route('/user/info', methods=['GET'])
+@swag_from('/work/gaohan/pythonProjects/PoetryLearningPlatform/poetryLearningPlatform-backend/blueprints/swagger_yml/auth/user_info.yml')
 @jwt_required(refresh=True)
 def get_user_info():
     user_id = get_jwt_identity()
@@ -173,6 +178,7 @@ def get_user_info():
 
 
 @bp.route('/switch/role', methods=['POST'])
+@swag_from('/work/gaohan/pythonProjects/PoetryLearningPlatform/poetryLearningPlatform-backend/blueprints/swagger_yml/auth/switch_role.yml')
 @jwt_required(refresh=True)
 def switch_role():
     role = request.json.get('role', '').strip()

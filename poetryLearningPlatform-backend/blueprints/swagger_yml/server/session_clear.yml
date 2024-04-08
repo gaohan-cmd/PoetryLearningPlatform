@@ -1,0 +1,11 @@
+In this example the specification is taken from external YAML file
+---
+tags:
+  -  server
+parameters:
+  - name: 清空会话列表
+responses:
+   200:
+      description: 响应结果正确
+   400:
+      description: 响应结果错误

@@ -7,7 +7,7 @@ from flask_jwt_extended import jwt_required
 from extensions import db
 from utils.backend_utils.response_utils import response
 from utils.backend_utils.colorprinter import *
-
+from flasgger import swag_from
 '''
 前后端code约定：
 code: 0 成功 前端无消息弹窗
@@ -26,6 +26,7 @@ bp = Blueprint('user-manage', __name__, url_prefix='/user-manage')
 
 
 @bp.route('/list', methods=['GET'])
+@swag_from('/work/gaohan/pythonProjects/PoetryLearningPlatform/poetryLearningPlatform-backend/blueprints/swagger_yml/user-manage/list.yml')
 @jwt_required(refresh=True)
 def get_users():
     page = int(request.args.get('currentPage', 1))  # 获取页码，默认为第一页
@@ -51,6 +52,7 @@ def get_users():
 
 
 @bp.route('/add', methods=['POST'])
+@swag_from('/work/gaohan/pythonProjects/PoetryLearningPlatform/poetryLearningPlatform-backend/blueprints/swagger_yml/user-manage/add.yml')
 @jwt_required(refresh=True)
 def add_user():
     username = request.json.get('username', '').strip()
@@ -73,6 +75,7 @@ def add_user():
 
 
 @bp.route('/delete/<int:user_id>', methods=['DELETE'])
+@swag_from('/work/gaohan/pythonProjects/PoetryLearningPlatform/poetryLearningPlatform-backend/blueprints/swagger_yml/user-manage/delete.yml')
 @jwt_required(refresh=True)
 def delete_user(user_id):
     user = UserModel.query.get(user_id)
@@ -84,6 +87,7 @@ def delete_user(user_id):
 
 
 @bp.route('/update', methods=['PUT'])
+@swag_from('/work/gaohan/pythonProjects/PoetryLearningPlatform/poetryLearningPlatform-backend/blueprints/swagger_yml/user-manage/update.yml')
 @jwt_required(refresh=True)
 def update_user():
     user_id = request.json.get('id', '')

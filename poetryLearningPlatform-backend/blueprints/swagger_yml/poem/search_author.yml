@@ -1,0 +1,19 @@
+In this example the specification is taken from external YAML file
+---
+tags:
+  -  poem
+parameters:
+  - name: 诗词查询-根据作者姓名
+    in: body
+    schema:
+      required:
+        - query_str
+      properties:
+        query_str:
+          type: string
+          description: 作者姓名
+responses:
+   200:
+      description: 响应结果正确
+   400:
+      description: 响应结果错误

@@ -27,3 +27,14 @@ MAIL_PORT = 465
 MAIL_USERNAME = '1608079002@qq.com'
 MAIL_PASSWORD = 'aiwflpoglrexgeic'
 MAIL_DEFAULT_SENDER = ("基于文生图大模型的古诗词学习平台", "1608079002@qq.com")
+
+# 有道翻译API配置
+APP_KEY = '00a1628544ff1cc0'
+APP_SECRET = 'EhbsXAgBYRUPXt1FZ6APQKyXg4crVkIA'
+
+# 百度AI配置
+API_KEY = "XiyzILmvNdOVvpr9GqhQjJVb"
+SECRET_KEY = "uW4G7oAV3QqcZRdRnfsW7xQ1t8rOwfPo"
+
+# OpenAI API
+OPENAI_API_KEY = "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"

@@ -1,0 +1,23 @@
+In this example the specification is taken from external YAML file
+---
+tags:
+  -  auth
+parameters:
+  - name: 切换角色
+    in: body
+    schema:
+      required:
+        - refresh_token
+        - role
+      properties:
+        refresh_token:
+          type: string
+          description: 刷新token
+        role:
+          type: string
+          description: 角色
+responses:
+   200:
+      description: 响应结果正确
+   400:
+      description: 响应结果错误

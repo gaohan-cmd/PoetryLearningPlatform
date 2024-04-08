@@ -1,13 +1,11 @@
 from flask import Blueprint, request
 from werkzeug.security import generate_password_hash
-
 from database_models import *
 from flask_jwt_extended import jwt_required
-
 from extensions import db
 from utils.backend_utils.response_utils import response
 from utils.backend_utils.colorprinter import *
-
+from flasgger import swag_from
 '''
 前后端code约定：
 code: 0 成功 前端无消息弹窗
@@ -26,6 +24,7 @@ bp = Blueprint('table', __name__, url_prefix='/table')
 
 
 @bp.route('/list', methods=['GET'])
+@swag_from('swagger_yml/table/list.yml')
 @jwt_required(refresh=True)
 def get_users():
     page = int(request.args.get('currentPage', 1))
@@ -48,6 +47,7 @@ def get_users():
 
 
 @bp.route('/add', methods=['POST'])
+@swag_from('swagger_yml/table/add.yml')
 @jwt_required(refresh=True)
 def add_user():
     username = request.json.get('username', '').strip()
@@ -70,6 +70,7 @@ def add_user():
 
 
 @bp.route('/delete/<int:user_id>', methods=['DELETE'])
+@swag_from('swagger_yml/table/delete.yml')
 @jwt_required(refresh=True)
 def delete_user(user_id):
     user = UserModel.query.get(user_id)
@@ -81,6 +82,7 @@ def delete_user(user_id):
 
 
 @bp.route('/update', methods=['PUT'])
+@swag_from('swagger_yml/table/update.yml')
 @jwt_required(refresh=True)
 def update_user():
     user_id = request.json.get('id', '')

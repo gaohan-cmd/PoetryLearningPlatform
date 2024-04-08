@@ -1,0 +1,35 @@
+In this example the specification is taken from external YAML file
+---
+tags:
+  -  poem
+parameters:
+  - name: 诗词查询-根据id
+    in: body
+    schema:
+      required:
+        - id
+        - username
+        - status
+        - email
+        - role
+      properties:
+        id:
+          type: string
+          description: 用户id
+        username:
+          type: string
+          description: 用户名
+        email:
+          type: string
+          description: 邮箱
+        role:
+          type: string
+          description: 角色
+        status:
+          type: string
+          description: 状态
+responses:
+   200:
+      description: 响应结果正确
+   400:
+      description: 响应结果错误

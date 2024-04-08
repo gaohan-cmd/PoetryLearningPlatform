@@ -5,9 +5,9 @@ import config
 import argparse
 import os
 
-from flask import Flask, g, session
+from flask import Flask, g, session, jsonify
 from flask_migrate import Migrate
-from flask_jwt_extended import JWTManager
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt
 
 from extensions import *
 from utils.backend_utils.colorprinter import *
@@ -15,11 +15,9 @@ from database_models import *
 from blueprints.auth_bp import bp as auth_bp
 from blueprints.server_bp import bp as server_bp
 from blueprints.user_manage_bp import bp as user_manage_bp
-from blueprints.detect_demo_bp import bp as detect_demo_bp
-from blueprints.detect_bp import bp as detect_bp
 from blueprints.chat_bp import bp as chat_bp
 from blueprints.poem_bp import bp as poem_bp
-
+from flasgger import Swagger
 import os
 
 '''
@@ -48,12 +46,11 @@ flask db migrate
 flask db upgrade
 '''
 migrate = Migrate(app, db)
-
+Swagger(app)
+app.config['JSON_AS_ASCII'] = False
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(server_bp, url_prefix='/server')
 app.register_blueprint(user_manage_bp, url_prefix='/user-manage')
-app.register_blueprint(detect_demo_bp, url_prefix='/detect-demo')
-app.register_blueprint(detect_bp, url_prefix='/detect')
 # 文生图模型-生成图片-回答文本-图文对话
 app.register_blueprint(chat_bp, url_prefix='/chat')
 app.register_blueprint(poem_bp, url_prefix='/poem')
@@ -64,7 +61,6 @@ app.register_blueprint(poem_bp, url_prefix='/poem')
 def load_default_model():
     g.repo_dir = repo_dir
     session['repo_dir'] = g.repo_dir
-
 
 
 # 注册一个函数，该函数在每次请求之前运行

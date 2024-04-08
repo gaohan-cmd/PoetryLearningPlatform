@@ -1,0 +1,27 @@
+In this example the specification is taken from external YAML file
+---
+tags:
+  -  auth
+parameters:
+  - name: 用户登录
+    in: formData
+    schema:
+      required:
+        - username
+        - password
+        - captcha
+      properties:
+        username:
+          type: string
+          description: 用户名
+        password:
+          type: string
+          description: 密码
+        captcha:
+          type: string
+          description: 验证码
+responses:
+   200:
+      description: 响应结果正确
+   400:
+      description: 响应结果错误
