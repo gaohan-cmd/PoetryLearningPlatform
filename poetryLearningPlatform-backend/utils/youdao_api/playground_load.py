@@ -4,7 +4,7 @@ import json
 from utils.gpt.prompt_utils import *
 from utils.youdao_api.AuthV3Util import addAuthParams
 import config
-from flask import g, session
+from utils.backend_utils.diffusion_model import pipe
 
 APP_KEY = config.APP_KEY
 APP_SECRET = config.APP_SECRET
@@ -77,12 +77,7 @@ def generate_img(chinese_prompt):
     dict = json.loads(createRequest(chinese_prompt))
     english_prompt = dict["translation"]
     print(english_prompt)
-
     prompt = "An ultra realistic photo taken with a canon eos r5 camera,{}".format(english_prompt)
-    print_blue("Loading playground..." + session['repo_dir'])
-    # print_blue(session['pipe'])
-    # 生成图片
-    pipe = g.pipe
     image = pipe.model(prompt=prompt, width=512, height=512).images[0]
 
     # 图片保存

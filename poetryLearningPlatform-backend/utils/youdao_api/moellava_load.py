@@ -21,7 +21,7 @@ from models.moellava.mm_utils import process_images, tokenizer_image_token, get_
     KeywordsStoppingCriteria
 from PIL import Image
 import config
-from flask import g, session
+from utils.backend_utils.moellava_model import MOELLAVA_MODEL
 
 # from AuthV3Util import addAuthParams
 
@@ -89,9 +89,6 @@ def get_access_token():
 
 def generate_anwser(chinese_prompt, image):
     disable_torch_init()
-    print_blue("Loading moellava..."+session['repo_dir'])
-    # print_blue(session['MOELLAVA_MODEL'])
-    MOELLAVA_MODEL = g.MOELLAVA_MODEL
     # image = '/work/songyukun/projects/PoetryLearningPlatform/poetryLearningPlatform-backend/utils/moellava/serve/examples/desert.jpg'
     # inp = 'What do you see in this image?'
     # chinese_prompt = get_explain_respond(chinese_prompt)

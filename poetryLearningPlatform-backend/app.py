@@ -14,8 +14,6 @@ from blueprints.chat_bp import bp as chat_bp
 from blueprints.poem_bp import bp as poem_bp
 from flasgger import Swagger
 from utils.gpt.prompt_utils import *
-from utils.backend_utils.model_handler import initialize_models
-# from load import Diffusion_model, MOELLAVA_LOAD
 
 '''
 前后端code约定：
@@ -52,19 +50,11 @@ app.register_blueprint(user_manage_bp, url_prefix='/user-manage')
 app.register_blueprint(chat_bp, url_prefix='/chat')
 app.register_blueprint(poem_bp, url_prefix='/poem')
 
-
 # 注册一个函数，该函数在第一次请求之前运行
 @app.before_first_request
 def load_default_model():
     g.repo_dir = repo_dir
-    g.pipe, g.MOELLAVA_MODEL = initialize_models()
     session['repo_dir'] = g.repo_dir
-    # session['pipe'] = g.pipe
-    # session['MOELLAVA_MODEL'] = g.MOELLAVA_MODEL
-    # g.pipe = Diffusion_model()
-    # g.MOELLAVA_MODEL = MOELLAVA_LOAD()
-    print_cyan('默认模型加载成功🎉')
-
 
 
 # 注册一个函数，该函数在每次请求之前运行
@@ -96,4 +86,4 @@ if __name__ == "__main__":
     test_database_connection()
     print_cyan('项目已启动')
     print_cyan(f'当前工作目录: {repo_dir}')
-    app.run(host="0.0.0.0", port=args.port, debug=True)
+    app.run(host="0.0.0.0", port=args.port, debug=False)
