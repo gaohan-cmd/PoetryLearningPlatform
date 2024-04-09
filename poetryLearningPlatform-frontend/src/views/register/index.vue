@@ -121,7 +121,7 @@ const handleRegister = () => {
     <ThemeSwitch class="theme-switch" />
     <div class="login-card">
       <div class="title">
-        <img src="@/assets/layout/logo-poem-2.png" />
+        <img src="@/assets/layout/poem_b.png" />
       </div>
       <div class="content">
         <el-form ref="registerFormRef" :model="registerForm" :rules="registerFormRules" @keyup.enter="handleRegister">
