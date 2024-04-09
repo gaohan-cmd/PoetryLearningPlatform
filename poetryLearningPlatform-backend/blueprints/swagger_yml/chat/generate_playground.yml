@@ -1,9 +1,9 @@
-In this example the specification is taken from external YAML file
+playground图像生成
 ---
 tags:
   -  chat
 parameters:
-  - name: playground图像生成
+  - name: body
     in: body
     schema:
       required:

@@ -1,7 +1,6 @@
 from flask import Blueprint, request
 from PIL import Image
 import base64
-
 from io import BytesIO
 from utils.backend_utils.dir_utils import *
 from utils.backend_utils.response_utils import response

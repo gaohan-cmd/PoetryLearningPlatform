@@ -1,14 +1,9 @@
 import sqlalchemy
-import torch
-
 import config
 import argparse
-import os
-
-from flask import Flask, g, session, jsonify
+from flask import Flask, g, session
 from flask_migrate import Migrate
-from flask_jwt_extended import JWTManager, jwt_required, get_jwt
-
+from flask_jwt_extended import JWTManager
 from extensions import *
 from utils.backend_utils.colorprinter import *
 from database_models import *
@@ -18,7 +13,10 @@ from blueprints.user_manage_bp import bp as user_manage_bp
 from blueprints.chat_bp import bp as chat_bp
 from blueprints.poem_bp import bp as poem_bp
 from flasgger import Swagger
-import os
+from utils.gpt.prompt_utils import *
+from utils.backend_utils.model_handler import initialize_models
+# from load import Diffusion_model, MOELLAVA_LOAD
+
 '''
 前后端code约定：
 code: 0 成功 前端无消息弹窗
@@ -59,12 +57,24 @@ app.register_blueprint(poem_bp, url_prefix='/poem')
 @app.before_first_request
 def load_default_model():
     g.repo_dir = repo_dir
+    g.pipe, g.MOELLAVA_MODEL = initialize_models()
     session['repo_dir'] = g.repo_dir
+    # session['pipe'] = g.pipe
+    # session['MOELLAVA_MODEL'] = g.MOELLAVA_MODEL
+    # g.pipe = Diffusion_model()
+    # g.MOELLAVA_MODEL = MOELLAVA_LOAD()
+    print_cyan('默认模型加载成功🎉')
+
 
 
 # 注册一个函数，该函数在每次请求之前运行
 # @app.before_request
 # def before_request():
+
+# def load_default_model():
+#     with app.app_context():
+#         g.pipe, g.model = initialize_models()
+#         print_cyan('默认模型加载成功🎉')
 
 
 def test_database_connection():
@@ -75,15 +85,6 @@ def test_database_connection():
                 print_green('Database connection successful')
             else:
                 print_red('Database connection failed')
-
-from diffusers import DiffusionPipeline
-import torch
-import requests
-import json
-from utils.youdao_api.AuthV3Util import addAuthParams
-from utils.gpt.prompt_utils import *
-from models.moellava.mm_utils import get_model_name_from_path
-from models.moellava.model.builder import load_pretrained_model
 
 
 if __name__ == "__main__":
@@ -96,4 +97,3 @@ if __name__ == "__main__":
     print_cyan('项目已启动')
     print_cyan(f'当前工作目录: {repo_dir}')
     app.run(host="0.0.0.0", port=args.port, debug=True)
-

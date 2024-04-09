@@ -13,7 +13,7 @@ def t2s(chars: str) -> str:
     return converter_t2s.convert(chars)
 
 
-def db_get_conn(host='10.129.86.238', user='root', passwd='root', db='chinese-poetry-collection',
+def db_get_conn(host='10.129.86.238', user='root', passwd='root', db='poetry_learning_platform',
                 port=3306) -> pymysql.connections:
     conn = pymysql.connect(host=host, user=user, passwd=passwd, db=db, port=port)
     return conn

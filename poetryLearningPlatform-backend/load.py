@@ -1,9 +1,5 @@
 from diffusers import DiffusionPipeline
 import torch
-import requests
-import json
-from utils.youdao_api.AuthV3Util import addAuthParams
-from utils.gpt.prompt_utils import *
 from models.moellava.mm_utils import get_model_name_from_path
 from models.moellava.model.builder import load_pretrained_model
 #文生图模型

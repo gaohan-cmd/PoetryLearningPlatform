@@ -1,9 +1,9 @@
-In this example the specification is taken from external YAML file
+用户信息查看
 ---
 tags:
   -  auth
 parameters:
-  - name: 用户信息查看
+  - name: body
     in: body
     schema:
       required:

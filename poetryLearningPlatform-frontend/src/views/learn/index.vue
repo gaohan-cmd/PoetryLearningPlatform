@@ -15,6 +15,7 @@ if (inputValueFromRoute) {
   inputValue.value = inputValueFromRoute.replace(/<br>/g, "\n")
 }
 const poetryExplain = ref("")
+const poetryAnswer = ref("")
 const loading = ref(false)
 /** 获取诗词回答 */
 const handleConfirmQuestion = () => {
@@ -57,10 +58,10 @@ const getGenerateTxtByWenXin = async (inputText: string) => {
 const getGenerateAnswerByMoellava = async (inputText: string) => {
   loading.value = true
   try {
-    const response = await generateAnswerByMoellava({ question: inputText })
-    poetryExplain.value = response.data.answer.replace(/\\n/g, "\n").slice(0, -1)
+    const response = await generateAnswerByMoellava({ poetryQuestion: inputText })
+    poetryAnswer.value = response.data.answer.replace(/\\n/g, "\n").slice(0, -1)
   } catch (error) {
-    poetryExplain.value = "请求失败，请重试"
+    poetryAnswer.value = "请求失败，请重试"
     console.error(error)
   } finally {
     loading.value = false
@@ -165,7 +166,7 @@ const dataURItoBlob = (dataURI: any) => {
       </el-row>
       <el-row :gutter="20">
         <el-col :span="10">
-          <el-input type="textarea" autosize v-model="poetryExplain" class="response-textarea" readonly />
+          <el-input type="textarea" autosize v-model="poetryAnswer" class="response-textarea" readonly />
         </el-col>
       </el-row>
     </el-card>

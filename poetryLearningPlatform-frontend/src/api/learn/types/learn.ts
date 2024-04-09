@@ -11,7 +11,7 @@ export interface IPoetryContentData {
   poetryContent: string
 }
 export interface IPoetryQuestionData {
-  question: string
+  poetryQuestion: string
 }
 
 // 定义响应回来数据格式-如果是对象则使用结构体去映射，是字符串则直接使用字符串

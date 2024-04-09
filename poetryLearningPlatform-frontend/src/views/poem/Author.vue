@@ -19,7 +19,10 @@
         <tr>
           <td>{{ author.a_name }}</td>
           <td>{{ author.d_name }}</td>
-          <td><n-button @click="view_author_poems(author.a_id)">查看TA的诗词</n-button></td>
+          <td>
+            <n-button class="button-view-poems" @click="view_author_poems(author.a_id)">查看TA的诗词</n-button>
+            <n-button class="button-generate-cloud" @click="generate_cloud(author.a_id)">词云生成</n-button>
+          </td>
         </tr>
       </tbody>
     </n-table>
@@ -72,6 +75,9 @@ export default defineComponent({
     },
     view_author_poems: function (id) {
       router.push("/search_poem_other_list/author/" + id)
+    },
+    generate_cloud: function (id) {
+      router.push("/poem/cloud/author/" + id)
     }
   },
   mounted() {
@@ -92,4 +98,15 @@ export default defineComponent({
 })
 </script>
 
-<style></style>
+<style scoped>
+.button-view-poems {
+  margin-right: 10px; /* 调整按钮间的间距 */
+  background-color: #4caf50; /* 设置查看诗词按钮的背景色 */
+  color: white; /* 设置查看诗词按钮的文字颜色 */
+}
+
+.button-generate-cloud {
+  background-color: #008cba; /* 设置词云生成按钮的背景色 */
+  color: white; /* 设置词云生成按钮的文字颜色 */
+}
+</style>

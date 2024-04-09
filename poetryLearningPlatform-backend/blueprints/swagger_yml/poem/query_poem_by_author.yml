@@ -1,10 +1,10 @@
-In this example the specification is taken from external YAML file
+诗词查询-根据作者id
 ---
 tags:
   -  poem
 parameters:
-  - name: 诗词查询-根据作者id
-    in: body
+  - name: a_id
+    in: query
     schema:
       required:
         - a_id

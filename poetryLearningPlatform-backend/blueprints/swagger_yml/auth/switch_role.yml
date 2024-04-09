@@ -1,9 +1,9 @@
-In this example the specification is taken from external YAML file
+切换角色
 ---
 tags:
   -  auth
 parameters:
-  - name: 切换角色
+  - name: body
     in: body
     schema:
       required:

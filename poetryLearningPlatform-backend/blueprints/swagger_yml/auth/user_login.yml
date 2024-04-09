@@ -1,9 +1,13 @@
-In this example the specification is taken from external YAML file
+用户登录
 ---
 tags:
   -  auth
 parameters:
-  - name: 用户登录
+  - name: username
+    in: formData
+  - name: password
+    in: formData
+  - name: captcha
     in: formData
     schema:
       required:

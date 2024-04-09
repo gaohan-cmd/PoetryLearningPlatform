@@ -1,9 +1,9 @@
-In this example the specification is taken from external YAML file
+文心一言回答
 ---
 tags:
   -  chat
 parameters:
-  - name: 文心一言回答
+  - name: body
     in: body
     schema:
       required:
