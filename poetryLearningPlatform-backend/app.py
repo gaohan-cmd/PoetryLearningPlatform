@@ -86,4 +86,5 @@ if __name__ == "__main__":
     test_database_connection()
     print_cyan('项目已启动')
     print_cyan(f'当前工作目录: {repo_dir}')
+    print_green('当前项目api接口文档: http://10.3.242.127:5003/apidocs/')
     app.run(host="0.0.0.0", port=args.port, debug=False)

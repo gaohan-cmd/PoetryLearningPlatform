@@ -49,9 +49,6 @@ export const constantRoutes: RouteRecordRaw[] = [
       {
         path: "",
         component: () => import("@/views/poem/PoemCloud.vue"),
-        meta: {
-          hidden: true
-        },
         props: true
       }
     ]
@@ -177,12 +174,12 @@ export const constantRoutes: RouteRecordRaw[] = [
     ]
   },
   {
-    path: "/",
+    path: "/learn",
     component: Layout,
-    redirect: "/learn",
+    // redirect: "/learn",
     children: [
       {
-        path: "learn",
+        path: "",
         component: () => import("@/views/learn/index.vue"),
         name: "Learn",
         meta: {

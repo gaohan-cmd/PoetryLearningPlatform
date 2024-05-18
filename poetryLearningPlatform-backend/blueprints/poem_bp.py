@@ -36,6 +36,18 @@ def search_poem_controller():
     return jsonify(search_poem(query_str, query_type, items_per_page, curr_page))
 
 
+@bp.route("/search/poem_cloud", methods=['GET'])
+@swag_from('swagger_yml/poem/search_poem_cloud.yml')
+def search_poem_cloud_controller():
+    args = dict(flask.request.args)
+    query_str = args['query_id']
+    query_type = args['query_type']
+    items_per_page = int(args.get('items_per_page', 1000))
+    curr_page = int(args.get('curr_page', 1))
+
+    return jsonify(search_poem_cloud(query_str, query_type, items_per_page, curr_page))
+
+
 @bp.route("/query/poem_by_id", methods=['GET'])
 @swag_from('swagger_yml/poem/query_poem_by_id.yml')
 def query_poem_by_id_controller():

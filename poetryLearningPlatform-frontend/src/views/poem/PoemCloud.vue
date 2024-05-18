@@ -11,11 +11,14 @@
       </span>
     </div>
   </section>
-  <div>
-    <div class="wordcloud-container">
-      <!-- echarts图表 -->
-      <wordcloud />
-    </div>
+  <!--  <div>-->
+  <!--    <div class="wordcloud-container">-->
+  <!--      &lt;!&ndash; echarts图表 &ndash;&gt;-->
+  <!--      <wordcloud />-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <div class="wordcloud-container">
+    <div id="chart" style="width: 500px; height: 400px" />
   </div>
 </template>
 

@@ -215,7 +215,8 @@ def query_random_poem() -> dict:
     return query_poem_by_id(p_id)
 
 
-def search_poem_cloud(query_id: int = -1, query_type: str = "collection") -> dict:
+def search_poem_cloud(query_id: int = -1, query_type: str = "collection", items_per_page: int = 100,
+                      curr_page: int = 1) -> dict:
     res = {
         'num_res': 0,
         'result': [],
@@ -230,19 +231,19 @@ def search_poem_cloud(query_id: int = -1, query_type: str = "collection") -> dic
                   f" LEFT JOIN author as a ON p.p_author_id = a.a_id " \
                   f" LEFT JOIN rhythmic as r ON p.p_rhythmic_id = r.r_id " \
                   f" LEFT JOIN collection as c ON p.p_collection_id = c.c_id " \
-                  f"WHERE c.c_id = {query_id}"
+                  f"WHERE c.c_id = {query_id} LIMIT {(curr_page - 1) * items_per_page}, {items_per_page}"
     elif query_type == "rhythmic":
         query_s = f"SELECT p.p_id, p.p_title, a.a_id, a.a_name, r.r_id, r.r_name, p.p_paragraph " \
                   f"FROM poetry as p " \
                   f" LEFT JOIN author as a ON p.p_author_id = a.a_id " \
                   f" LEFT JOIN rhythmic as r ON p.p_rhythmic_id = r.r_id " \
-                  f"WHERE r.r_id = {query_id}"
+                  f"WHERE r.r_id = {query_id} LIMIT {(curr_page - 1) * items_per_page}, {items_per_page}"
     elif query_type == "author":
         query_s = f"SELECT p.p_id, p.p_title, a.a_id, a.a_name, r.r_id, r.r_name, p.p_paragraph " \
                   f"FROM poetry as p " \
                   f" LEFT JOIN author as a ON p.p_author_id = a.a_id " \
                   f" LEFT JOIN rhythmic as r ON p.p_rhythmic_id = r.r_id " \
-                  f"WHERE a.a_id = {query_id}"
+                  f"WHERE a.a_id = {query_id} LIMIT {(curr_page - 1) * items_per_page}, {items_per_page}"
     res_s = db_select(query_s)
     for poem in res_s[1]:
         if poem['p_id'] in added_ids:

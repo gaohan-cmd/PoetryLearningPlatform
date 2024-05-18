@@ -10,7 +10,7 @@ JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
 
 # 数据库配置
 # HOSTNAME = '127.0.0.1'
-HOSTNAME = ''
+HOSTNAME = '10.129.86.238'
 PORT = 3306
 USERNAME = 'root'
 PASSWORD = 'root'
@@ -24,21 +24,21 @@ SQLALCHEMY_DATABASE_URI = DB_URI
 MAIL_SERVER = 'smtp.qq.com'
 MAIL_USE_SSL = True
 MAIL_PORT = 465
-MAIL_USERNAME = ''
-MAIL_PASSWORD = ''
+MAIL_USERNAME = '1608079002@qq.com'
+MAIL_PASSWORD = 'aiwflpoglrexgeic'
 MAIL_DEFAULT_SENDER = ("基于文生图大模型的古诗词学习平台", "1608079002@qq.com")
 
 # 有道翻译API配置
-APP_KEY = ''
-APP_SECRET = ''
+APP_KEY = '00a1628544ff1cc0'
+APP_SECRET = 'EhbsXAgBYRUPXt1FZ6APQKyXg4crVkIA'
 
 # 百度AI配置
-API_KEY = ""
-SECRET_KEY = ""
+API_KEY = "XiyzILmvNdOVvpr9GqhQjJVb"
+SECRET_KEY = "uW4G7oAV3QqcZRdRnfsW7xQ1t8rOwfPo"
 
 # OpenAI API
 OPENAI_API_KEY = ""
 
 # 英译中
-APP_KEY_C = ''
-APP_SECRET_C = ''
+APP_KEY_C = '60fe49c5bcafe171'
+APP_SECRET_C = 'IVnUAPXjj63Z4qBWU4gmCr2fUZyNZ59K'

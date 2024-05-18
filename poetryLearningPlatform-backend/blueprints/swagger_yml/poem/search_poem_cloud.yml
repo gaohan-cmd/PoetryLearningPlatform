@@ -1,0 +1,29 @@
+诗词查询-根据查询类型
+---
+tags:
+  -  poem
+parameters:
+  - name: query_id
+    in: query
+  - name: query_type
+    in: query
+  - name: items_per_page
+    in: query
+  - name: curr_page
+    in: query
+    schema:
+      required:
+        - query_id
+        - query_type
+      properties:
+        query_str:
+          type: string
+          description: 诗词查询字符串
+        query_type:
+            type: string
+            description: 诗词查询类型
+responses:
+   200:
+      description: 响应结果正确
+   400:
+      description: 响应结果错误

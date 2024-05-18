@@ -83,7 +83,7 @@ const handleRegister = () => {
     <ThemeSwitch class="theme-switch" />
     <div class="login-card">
       <div class="title">
-        <img src="@/assets/layout/poem_b.png" />
+        <img src="@/assets/layout/poem_f.png" />
       </div>
       <div class="content">
         <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" @keyup.enter="handleLogin">

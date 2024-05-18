@@ -12,6 +12,7 @@ export default defineComponent({
   },
   methods: {},
   async mounted() {
+    console.log("mounted----------Home.vue")
     await axios
       .get("/api/v1/poem/query/random_poem")
       .then((response) => {
