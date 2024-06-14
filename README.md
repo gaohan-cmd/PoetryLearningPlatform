@@ -40,6 +40,10 @@
 - **PyMySQL**：MySQL数据库驱动程序
 
 # 🛠 安装教程
+## 数据库
+```
+https://cloud.189.cn/web/share?code=zqEfUrmqyuai（访问码：wte8）
+```
 
 ## 深度学习
 
